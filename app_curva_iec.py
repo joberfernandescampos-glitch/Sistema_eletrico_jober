@@ -2,6 +2,7 @@ import cmath
 import math
 import matplotlib.pyplot as plt
 import numpy as np
+import plotly.graph_objects as go
 import streamlit as st
 
 # Configuração global da página
@@ -19,6 +20,7 @@ modulo = st.selectbox(
         "Página Inicial / Informações",
         "1. Componentes Simétricas",
         "2. Curvas IEC (Proteção)",
+        "3. Cálculo de Tensões",
     ],
 )
 
@@ -35,6 +37,7 @@ if modulo == "Página Inicial / Informações":
 
     * **Componentes Simétricas:** Análise fasorial e cálculo de sequências (Zero, Positiva e Negativa).
     * **Curvas IEC:** Dimensionamento e simulação de tempos de atuação de relés de proteção.
+    * **Cálculo de Tensões:** Análise de regulação e queda de tensão em circuitos de distribuição.
     """)
     st.info(
         "💡 Se você estiver acessando pelo celular, basta tocar na caixa de seleção no topo para alternar entre as ferramentas de forma rápida!"
@@ -281,3 +284,21 @@ elif modulo == "2. Curvas IEC (Proteção)":
     ax3.grid(True, which="both", linestyle=":", alpha=0.5)
     ax3.legend()
     st.pyplot(fig3)
+
+# =========================================================================
+# MODULO 3: CÁLCULO DE TENSÕES
+# =========================================================================
+elif modulo == "3. Cálculo de Tensões":
+    st.subheader("⚙️ Módulo de Regulação e Queda de Tensões")
+
+    col_ten1, col_ten2 = st.columns(2)
+    with col_ten1:
+        v_fonte = st.number_input(
+            "Tensão de Linha na Fonte (V) [V]:",
+            min_value=1.0,
+            value=13800.0,
+            step=100.0,
+        )
+        distancia = st.number_input(
+            "Distância do Circuito (km):", min_value=0.01, value=5.0, step=0.5
+        )
